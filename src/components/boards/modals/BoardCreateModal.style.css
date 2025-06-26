@@ -1,0 +1,54 @@
+.board-modal {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.board-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.board-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.board-input {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  background-color: #f9fafb;
+  color: #111827;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.board-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  background-color: #ffffff;
+}
+
+.board-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.board-save-btn {
+  padding: 0.5rem 1.25rem;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.board-save-btn:hover {
+  background-color: #1d4ed8;
+}

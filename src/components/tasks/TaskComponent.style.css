@@ -1,0 +1,84 @@
+.task-container {
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.task-container:hover {
+  transform: translateY(-2px);
+}
+
+.task-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.task-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-icon {
+  color: #9ca3af; /* default gray */
+}
+
+.status-todo {
+  color: #9ca3af; /* gray-400 */
+}
+
+.status-in_progress {
+  color: #facc15; /* yellow-400 */
+}
+
+.status-done {
+  color: #22c55e; /* green-500 */
+}
+
+.status-unknown {
+  color: #f87171; /* red-400 */
+}
+
+.task-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.task-description {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.task-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.task-due {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.task-priority {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  color: white;
+  font-size: 0.75rem;
+  min-width: 90px;
+  text-align: center;
+  user-select: none;
+}

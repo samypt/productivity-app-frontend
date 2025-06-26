@@ -1,0 +1,39 @@
+.dashboard {
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.dashboard-title {
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  font-weight: 700;
+  color: #222;
+  text-align: left;
+  margin: 0;
+}
+
+.dashboard-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+}
+
+.dashboard-grid > * {
+  flex: 1 1 48%;
+  min-width: 300px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 700px) {
+  .dashboard-grid {
+    flex-direction: column;
+  }
+
+  .dashboard-grid > * {
+    flex: 1 1 100%;
+  }
+}

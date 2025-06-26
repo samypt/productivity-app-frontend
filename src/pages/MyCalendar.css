@@ -1,0 +1,141 @@
+/* Root layout support */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font-base);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Wrapper flex layout */
+.calendar-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 90vh; /* Full viewport height */
+  max-height: 100vh;
+  padding: 0 1rem 1rem; /* Add some padding for smaller screens */
+  box-sizing: border-box;
+  background-color: var(--color-bg);
+}
+
+/* Calendar container fills remaining space */
+.calendar-container {
+  flex-grow: 1;
+  min-height: 0;
+  overflow: auto;
+  width: 100%;
+}
+
+/* Ensure calendar itself fills container */
+.rbc-calendar {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Toolbar styling */
+.rbc-toolbar {
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-base);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #374151;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  user-select: none;
+}
+
+.rbc-toolbar button {
+  background: none;
+  border: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.5rem;
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.rbc-toolbar button:hover {
+  background-color: #eff6ff;
+}
+
+.rbc-toolbar button.rbc-active {
+  background-color: #2563eb;
+  color: white;
+}
+
+/* Toolbar label */
+.rbc-toolbar-label {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #374151;
+}
+
+/* Calendar events */
+.rbc-event {
+  background-color: #3b82f6;
+  border-radius: 0.375rem;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.75rem;
+  color: white;
+  font-weight: 500;
+  border: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Time slot borders */
+.rbc-time-slot {
+  border-top: 1px solid var(--color-border);
+}
+
+/* Date headers */
+.rbc-header {
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #374151;
+  border-bottom: 1px solid var(--color-border);
+  background-color: #f9fafb;
+  user-select: none;
+}
+
+/* Highlight current day */
+.rbc-today {
+  background-color: #f0f9ff;
+}
+
+/* Time gutter styling */
+.rbc-time-gutter {
+  background-color: #f9fafb;
+  border-right: 1px solid var(--color-border);
+  padding-right: 0.5rem;
+  color: #6b7280;
+  font-size: 0.75rem;
+  user-select: none;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .calendar-wrapper {
+    padding: 0.5rem;
+  }
+
+  .rbc-toolbar {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .rbc-toolbar-label {
+    font-size: 1rem;
+  }
+}

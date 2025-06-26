@@ -1,0 +1,65 @@
+.project-edit-modal {
+  padding: 24px;
+  font-family: "Inter", sans-serif;
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+.project-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.project-edit-form label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.project-edit-form input,
+.project-edit-form textarea {
+  padding: 10px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+  transition: border-color 0.2s ease;
+}
+
+.project-edit-form input:focus,
+.project-edit-form textarea:focus {
+  border-color: #888;
+  outline: none;
+}
+
+.project-edit-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.btn-save {
+  padding: 10px 20px;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-save:hover {
+  background-color: #333;
+}

@@ -1,0 +1,6 @@
+.team-members {
+  display: flex;
+  align-self: start;
+  position: relative;
+  z-index: 1;
+}

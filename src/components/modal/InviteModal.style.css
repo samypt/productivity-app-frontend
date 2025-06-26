@@ -1,0 +1,62 @@
+.invite-modal-container {
+  padding: 24px;
+  font-family: "Inter", sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.invite-modal-title {
+  margin: 0 0 16px 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #222;
+}
+
+.invite-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.invite-form label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.invite-form input,
+.invite-form select {
+  padding: 10px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+  transition: border-color 0.2s ease;
+}
+
+.invite-form input:focus,
+.invite-form select:focus {
+  border-color: #888;
+  outline: none;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-send-invite {
+  background-color: #222;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-send-invite:hover {
+  background-color: #333;
+}

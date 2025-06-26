@@ -1,0 +1,77 @@
+/* .topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2rem;
+  background-color: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  padding: 1rem 0;
+  gap: 2rem;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+}
+
+.topbar > a {
+  margin: 0 1.6rem;
+  color: #374151;
+} */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3.5rem;
+  background-color: #fafafa; /* light background */
+  border-bottom: 1px solid #d1d5db; /* subtle bottom border */
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  z-index: 1100;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: #374151; /* gray-700 */
+}
+
+.topbar-left .app-logo {
+  font-size: 1.5rem;
+  color: #2563eb; /* blue-600 */
+  user-select: none;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.topbar-icon {
+  color: #4b5563; /* gray-600 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.25s ease, transform 0.2s ease;
+  font-size: 1.5rem; /* icon size */
+}
+
+.topbar-icon:hover,
+.topbar-icon:focus {
+  color: #2563eb; /* blue-600 */
+  transform: scale(1.1);
+  outline: none;
+}
+
+/* Responsive: smaller padding on mobile */
+@media (max-width: 768px) {
+  .topbar {
+    padding: 0 1rem;
+  }
+
+  .topbar-right {
+    gap: 1.2rem;
+  }
+}

@@ -1,0 +1,55 @@
+.team-info-modal {
+  padding: 24px;
+  font-family: "Inter", sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.team-name {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+.team-role {
+  font-size: 14px;
+  color: #666;
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-section label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.readonly-textarea {
+  padding: 10px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #f3f3f3;
+  resize: none;
+  min-height: 80px;
+  color: #555;
+  cursor: not-allowed;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+}
+
+.created-at {
+  font-size: 13px;
+  color: #888;
+}

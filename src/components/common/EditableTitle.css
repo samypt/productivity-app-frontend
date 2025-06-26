@@ -1,0 +1,21 @@
+.editable-title {
+  display: inline-block;
+}
+
+.title-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  margin: 0;
+}
+
+.editable-input {
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  padding: 4px 8px;
+  width: 100%;
+  box-sizing: border-box;
+}

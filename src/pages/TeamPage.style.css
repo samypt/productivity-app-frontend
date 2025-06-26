@@ -1,0 +1,24 @@
+.project-container {
+  /* padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative; */
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.project-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+@media (max-width: 600px) {
+  .project-container {
+    flex: 1 1 100%;
+  }
+}

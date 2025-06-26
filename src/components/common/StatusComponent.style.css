@@ -1,0 +1,76 @@
+.status-icon {
+  vertical-align: middle;
+  transition: color 0.3s ease;
+  cursor: default; /* or pointer if clickable */
+}
+
+.status-icon.todo {
+  color: #6b7280;
+}
+
+.status-icon.in_progress {
+  color: #fbbf24;
+}
+
+.status-icon.done {
+  color: #22c55e;
+}
+
+.status-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip-wrapper {
+  width: 20px;
+  height: 20px;
+  color: gray;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  width: max-content;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+
+  position: absolute;
+  bottom: 125%; /* position above the icon */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.tooltip-wrapper:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Optional: arrow */
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* below the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
