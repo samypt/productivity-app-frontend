@@ -1,76 +1,38 @@
-.status-icon {
-  vertical-align: middle;
-  transition: color 0.3s ease;
-  cursor: default; /* or pointer if clickable */
-}
-
-.status-icon.todo {
-  color: #6b7280;
-}
-
-.status-icon.in_progress {
-  color: #fbbf24;
-}
-
-.status-icon.done {
-  color: #22c55e;
-}
-
-.status-label {
-  display: inline-flex;
+.status-wrapper {
+  display: flex;
   align-items: center;
-  gap: 0.25rem;
-  font-size: 0.875rem;
-  color: #374151;
-}
-
-.tooltip-wrapper {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.tooltip-wrapper {
-  width: 20px;
-  height: 20px;
-  color: gray;
-}
-
-.tooltip-text {
-  visibility: hidden;
-  opacity: 0;
-  width: max-content;
-  background-color: black;
-  color: white;
-  text-align: center;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 15px;
-  font-weight: 600;
-
-  position: absolute;
-  bottom: 125%; /* position above the icon */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-
-  transition: opacity 0.2s;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text, #374151);
   white-space: nowrap;
+  user-select: none;
+  font-family: var(--font-base, "Inter", sans-serif);
 }
 
-.tooltip-wrapper:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
+.status-icon {
+  transition: transform 0.2s ease;
+  color: var(--color-muted, #6b7280);
 }
 
-/* Optional: arrow */
-.tooltip-text::after {
-  content: "";
-  position: absolute;
-  top: 100%; /* below the tooltip */
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: black transparent transparent transparent;
+.status-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Pill-style label */
+.status-label {
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  background-color: var(--color-surface-muted, #f3f4f6);
+  color: var(--color-text, #374151);
+  border: 1px solid var(--color-border, #e5e7eb);
+  font-size: 0.75rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Optional dark theme override if needed */
+[data-theme="dark"] .status-label {
+  background-color: var(--color-surface-muted-dark, #374151);
+  color: var(--color-text-light, #f3f4f6);
+  border-color: var(--color-border-dark, #4b5563);
 }

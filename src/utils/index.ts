@@ -1,4 +1,4 @@
 export * from "./auth";
-export * from "./formatDate";
-export * from "./getColorFromName";
+export * from "./date";
+export * from "../hooks/usePastelColor";
 export * from "./getStatusLabel";

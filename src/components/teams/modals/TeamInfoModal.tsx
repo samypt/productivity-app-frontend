@@ -1,4 +1,5 @@
 import { components } from "../../../types/api";
+import { formatDateString } from "../../../utils";
 import { Modal } from "../../modal/Modal";
 import "./TeamInfoModal.style.css";
 
@@ -12,20 +13,12 @@ interface Props {
 
 export const TeamInfoModal: React.FC<Props> = ({ team, isOpen, onClose }) => {
   const date = team.created_at ? new Date(team.created_at) : null;
-
-  const formattedDate = date
-    ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
-        2,
-        "0"
-      )}-${String(date.getDate()).padStart(2, "0")} ${String(
-        date.getHours()
-      ).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`
-    : "Unknown";
+  const formattedDate = formatDateString(date);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="team-info-modal">
-        <h2 className="team-name">{team.name}</h2>
+        <h2 className="team-name1">{team.name}</h2>
         <p className="team-role">
           Your role: <strong>{team.membership.role}</strong>
         </p>

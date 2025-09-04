@@ -3,16 +3,14 @@ import { Link } from "react-router-dom";
 import { components } from "../../types/api";
 import { SettingsDropdown } from "../common";
 import { TeamInfoModal, TeamEditModal } from "./modals";
-import { useMutationFetch } from "../../hooks";
-import { getColorFromName } from "../../utils";
+import { usePastelColor } from "../../utils";
 import { UserList } from "../users";
 import "./TeamComponent.style.css";
+import { useDeleteTeam, useUpdateTeam } from "../../api/teams";
 
 type Props = {
   team: components["schemas"]["TeamFullInfo"];
 };
-type TeamUpdate = components["schemas"]["TeamUpdate"];
-type TeamRead = components["schemas"]["TeamRead"];
 
 const avatarLength: number = 3;
 const avatarSize: number = 36;
@@ -25,28 +23,14 @@ const TeamComponent: React.FC<Props> = ({ team }) => {
   const [isEditOpen, setEditOpen] = React.useState<boolean>(false);
   const handleOpenEdit = () => setEditOpen(true);
   const handleCloseEdit = () => setEditOpen(false);
-  const editTeam = useMutationFetch<TeamRead, TeamUpdate>({
-    url: `team/update/${team.id}`,
-    method: "PUT",
-    queryKey: "teams",
-  });
 
-  const handleEdit = async (updatedTeamData: TeamUpdate) => {
-    editTeam.mutate(updatedTeamData);
-  };
+  const { updateTeam } = useUpdateTeam(team.id);
 
   // Delete Team
 
-  const deleteTeam = useMutationFetch<TeamUpdate>({
-    url: `team/delete/${team.id}`,
-    method: "DELETE",
-    queryKey: "teams",
-  });
-  const handleDelete = () => {
-    deleteTeam.mutate();
-  };
+  const { deleteTeam } = useDeleteTeam(team.id);
 
-  const bgColor = getColorFromName(team.name);
+  const bgColor = usePastelColor(team.name);
   return (
     <div className="team-card" style={{ backgroundColor: bgColor }}>
       <Link to={`/teams/${team.id}`} className="card-link" />
@@ -73,7 +57,7 @@ const TeamComponent: React.FC<Props> = ({ team }) => {
       <SettingsDropdown
         onInfoClick={handleOpenInfo}
         onEditClick={handleOpenEdit}
-        onDeleteClick={handleDelete}
+        onDeleteClick={deleteTeam}
         clickOutsideEnabled={!(isInfoOpen || isEditOpen)}
         membership={team.membership?.role || undefined}
       />
@@ -81,7 +65,7 @@ const TeamComponent: React.FC<Props> = ({ team }) => {
         team={team}
         isOpen={isEditOpen}
         onClose={handleCloseEdit}
-        onSave={handleEdit}
+        onSave={updateTeam}
       />
       <TeamInfoModal
         team={team}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "./Modal";
 import { components } from "../../types/api";
-import { useMutationFetch } from "../../hooks";
+import { useInviteMember } from "../../api/invites";
 import "./InviteModal.style.css";
 
 type Props = {
@@ -10,28 +10,28 @@ type Props = {
   onClose: () => void;
 };
 
-type InviteRead = components["schemas"]["InviteRead"];
-type InviteCreate = components["schemas"]["InviteCreate"];
 type Role = components["schemas"]["Role"];
 
 export const InviteModal: React.FC<Props> = ({ isOpen, teamId, onClose }) => {
   const [email, setEmail] = useState<string>("");
   const [role, setRole] = useState<Role>("editor");
 
-  const createInvite = useMutationFetch<InviteRead, InviteCreate>({
-    method: "POST",
-    url: "invites",
-    queryKey: `invites`,
-  });
+  const inviteMember = useInviteMember();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createInvite.mutate({
-      team_id: teamId,
-      email,
-      role,
-    });
-    onClose();
+    inviteMember.mutate(
+      {
+        team_id: teamId,
+        email,
+        role,
+      },
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      }
+    );
   };
 
   return (

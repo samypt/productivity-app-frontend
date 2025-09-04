@@ -1,17 +1,11 @@
 import React from "react";
-import { components } from "../../types/api";
-import { useFetchWithAuth } from "../../hooks";
 import TaskComponent from "./TaskComponent";
+import { useFetchUserTasks } from "../../api/tasks";
 import "./MyTasks.style.css";
 
-type TasksData = {
-  [fieldName: string]: components["schemas"]["TaskRead"][];
-};
-
 const MyTasks: React.FC = () => {
-  const { data } = useFetchWithAuth<TasksData>("users/me/tasks");
-
-  const list = data?.tasks?.map((task) => (
+  const { tasks } = useFetchUserTasks();
+  const list = tasks?.map((task) => (
     <TaskComponent key={task.id} task={task} />
   ));
 

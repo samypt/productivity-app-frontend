@@ -1,18 +1,18 @@
 .assign-modal_container {
   max-width: 500px;
   margin: auto;
-  background-color: #fff;
+  background-color: var(--color-surface);
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   padding: 24px;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-base);
 }
 
 .assign-modal_header h3 {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 16px;
-  color: #222;
+  color: var(--color-text);
 }
 
 .list-scroll-area {
@@ -27,7 +27,7 @@
 
 .section-label {
   font-size: 14px;
-  color: #888;
+  color: var(--color-muted);
   font-weight: 500;
   text-transform: uppercase;
   margin: 12px 0;
@@ -44,7 +44,7 @@
 }
 
 .user-row:hover {
-  background-color: #f5f5f5;
+  background-color: var(--color-hover);
 }
 
 .user-info {
@@ -56,18 +56,18 @@
 .user-name {
   font-size: 16px;
   font-weight: 500;
-  color: #333;
+  color: var(--color-text);
 }
 
 .user-action svg {
   width: 20px;
   height: 20px;
-  color: #666;
+  color: var(--color-muted);
 }
 
 .divider {
   height: 1px;
-  background-color: #e0e0e0;
+  background-color: var(--color-border);
   margin: 8px 0 24px;
 }
 
@@ -75,7 +75,7 @@
 .error-text,
 .empty-text {
   font-size: 14px;
-  color: #666;
+  color: var(--color-muted);
   margin-bottom: 16px;
 }
 
@@ -83,26 +83,5 @@
   height: 24px;
   text-align: center;
   font-size: 12px;
-  color: #aaa;
+  color: var(--color-muted);
 }
-/* .load-more-trigger:hover {
-  color: #333;
-  cursor: pointer;
-}
-.load-more-trigger:active {
-  color: #222;
-}
-.load-more-trigger:disabled {
-  color: #ccc;
-  cursor: not-allowed;
-}
-.load-more-trigger:disabled:hover {
-  color: #ccc;
-}
-.load-more-trigger:disabled:active {
-  color: #ccc;
-}
-.load-more-trigger:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(34, 34, 34, 0.2);
-} */

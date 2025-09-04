@@ -1,43 +1,64 @@
 import React, { useEffect, useContext } from "react";
-import { components } from "../../types/api";
 import NotificationComponent from "./NotificationComponent";
-import { useFetch } from "../../hooks";
+import { useInView } from "react-intersection-observer";
+import { useFetchNotifications } from "../../api/notifications";
 import { AppSyncContext } from "../../store/AppSyncContext";
 import "./NotificationList.css";
-
-type NotificationList = components["schemas"]["NotificationList"];
 
 const NotificationList: React.FC = () => {
   const { version } = useContext(AppSyncContext);
 
-  const { data, refetch } = useFetch<NotificationList>({
-    url: "notifications",
-    queryKey: "notifications",
+  const { ref, inView } = useInView({
+    threshold: 0.5,
+    triggerOnce: false,
   });
+
+  const {
+    notifications,
+    refetch,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useFetchNotifications();
+
+  React.useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView]);
 
   useEffect(() => {
     refetch();
     console.log("Refetching Notifications data...");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [version]);
 
-  const unreadNotifications =
-    data?.notifications.filter((n) => !n.is_read) ?? [];
-  // data?.notifications.filter((n) => !n.is_read) ?? [];
-
   return (
-    <div className="notifications-list-container">
+    <section className="notifications-section">
       <h2 className="notifications-title">Notifications</h2>
-      {unreadNotifications.length === 0 ? (
-        <div className="no-notifications">You're all caught up 🎉</div>
-      ) : (
-        unreadNotifications.map((notification) => (
-          <NotificationComponent
-            key={notification.id}
-            notification={notification}
-          />
-        ))
-      )}
-    </div>
+
+      <div className="notifications-list-container">
+        {notifications.length === 0 ? (
+          <div className="no-notifications">
+            <p className="no-title">You're all caught up 🎉</p>
+            <p className="no-subtitle">
+              No unread notifications at the moment.
+            </p>
+          </div>
+        ) : (
+          notifications.map((notification) => (
+            <NotificationComponent
+              key={notification.id}
+              notification={notification}
+            />
+          ))
+        )}
+
+        <div ref={ref} />
+        {isFetchingNextPage && <p className="loading-message">Loading...</p>}
+      </div>
+    </section>
   );
 };
 

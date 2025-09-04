@@ -8,16 +8,11 @@
   right: 0;
   bottom: 0;
   pointer-events: auto;
-  text-decoration: none;
 }
 
 .interactive {
   position: relative;
-  pointer-events: auto; /* allow clicks */
-}
-
-.card-link {
-  pointer-events: auto; /* link itself */
+  pointer-events: auto;
 }
 
 .project-card {
@@ -27,22 +22,21 @@
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  background-color: #f9fafb;
-  border: 1px solid #eaeaea;
+  background-color: var(--color-bg, #f9fafb);
+  border: 1px solid var(--color-border, #eaeaea);
   border-radius: 16px;
   padding: 1.5rem;
   max-width: 400px;
-  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.2s ease;
   flex: 1 1 400px;
   margin: 1rem;
   cursor: auto;
-  position: relative;
   overflow: visible;
 }
 
 .project-card:hover {
-  box-shadow: 8px 8px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 8px 8px 24px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
 }
 
@@ -50,23 +44,23 @@
   margin-bottom: 12px;
 }
 
-.team-info {
+.project-info {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.team-name {
+.project-name {
   font-size: 1.25rem;
   font-weight: 600;
   margin: 0;
-  color: #222;
+  color: var(--color-text-muted);
 }
 
-.team-role {
-  background-color: rgba(0, 0, 0, 0.05);
-  color: #374151;
-  border: 1px solid #ffffff;
+.project-role {
+  background-color: var(--color-muted-bg, rgba(0, 0, 0, 0.05));
+  color: var(--color-text-muted, #374151);
+  border: 1px solid var(--color-bg, #ffffff);
   font-size: 0.75rem;
   font-weight: 500;
   padding: 0.25rem 0.5rem;
@@ -74,22 +68,22 @@
   margin-right: 1.5rem;
 }
 
-.team-role.owner {
-  background-color: #e0f2fe;
-  color: #0369a1;
+.project-role.owner {
+  background-color: var(--color-info-bg, #e0f2fe);
+  color: var(--color-info, #0369a1);
 }
-.team-role.editor {
-  background-color: #d3f7e6;
-  color: #065f46;
+.project-role.editor {
+  background-color: var(--color-success-bg, #d3f7e6);
+  color: var(--color-success, #065f46);
 }
-.team-role.viewer {
-  background-color: #fef3c7;
-  color: #92400e;
+.project-role.viewer {
+  background-color: var(--color-warning-bg, #fef3c7);
+  color: var(--color-warning-text, #92400e);
 }
 
-.project-description {
+/* .project-description {
   font-size: 0.9rem;
-  color: #666;
+  color: var(--color-text-muted, #666);
   margin-bottom: 16px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -97,6 +91,19 @@
   line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;
+} */
+
+.project-description {
+  font-size: 0.9rem;
+  color: var(--color-muted, #666);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  min-height: 3.6em; /* Ensures consistent height */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .project-description:hover {

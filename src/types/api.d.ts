@@ -157,6 +157,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/users/upload-avatar": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Upload Avatar */
+        post: operations["upload_avatar_api_users_upload_avatar_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/team/create": {
         parameters: {
             query?: never;
@@ -633,7 +650,24 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/events/": {
+    "/api/tasks/unassign/{task_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Unassign Task From Member */
+        post: operations["unassign_task_from_member_api_tasks_unassign__task_id__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/events/create": {
         parameters: {
             query?: never;
             header?: never;
@@ -643,28 +677,127 @@ export interface paths {
         get?: never;
         put?: never;
         /** Create Event */
-        post: operations["create_event_api_events__post"];
+        post: operations["create_event_api_events_create_post"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/events/{event_id}": {
+    "/api/events/update/{event_id}": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Get Event */
-        get: operations["get_event_api_events__event_id__get"];
+        get?: never;
         /** Update Event */
-        put: operations["update_event_api_events__event_id__put"];
-        /** Assign Event To Member */
-        post: operations["assign_event_to_member_api_events__event_id__post"];
+        put: operations["update_event_api_events_update__event_id__put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/events/delete/{event_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
         /** Delete Event */
-        delete: operations["delete_event_api_events__event_id__delete"];
+        delete: operations["delete_event_api_events_delete__event_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/events/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get User Events */
+        get: operations["get_user_events_api_events_me_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/events/project/{project_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Events */
+        get: operations["get_events_api_events_project__project_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/events/calendar": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get User Events */
+        get: operations["get_user_events_api_events_calendar_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/events/assign/{event_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Assign Event To Member */
+        post: operations["assign_event_to_member_api_events_assign__event_id__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/events/unassign/{event_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Unassign Event From Member */
+        post: operations["unassign_event_from_member_api_events_unassign__event_id__post"];
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -742,6 +875,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/google/sync": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Sync Google Calendar */
+        post: operations["sync_google_calendar_api_google_sync_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/google/delete_calendar": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Sync Google Calendar */
+        post: operations["sync_google_calendar_api_google_delete_calendar_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -752,6 +919,11 @@ export interface components {
             boards: components["schemas"]["BoardLists"][];
             /** Total */
             total: number;
+        };
+        /** AssignRequest */
+        AssignRequest: {
+            /** Member Id */
+            member_id: string;
         };
         /** BoardCreate */
         BoardCreate: {
@@ -839,6 +1011,14 @@ export interface components {
             /** Client Secret */
             client_secret?: string | null;
         };
+        /** Body_upload_avatar_api_users_upload_avatar_post */
+        Body_upload_avatar_api_users_upload_avatar_post: {
+            /**
+             * File
+             * Format: binary
+             */
+            file: string;
+        };
         /** EventCreate */
         EventCreate: {
             /** Title */
@@ -857,13 +1037,43 @@ export interface components {
              * Format: date-time
              */
             end_time: string;
+        };
+        /** EventFull */
+        EventFull: {
+            /** Title */
+            title: string;
+            /** Description */
+            description?: string | null;
+            /** Project Id */
+            project_id: string;
+            /**
+             * Start Time
+             * Format: date-time
+             */
+            start_time: string;
+            /**
+             * End Time
+             * Format: date-time
+             */
+            end_time: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Created At */
+            created_at: string | null;
             /** Created By */
             created_by: string;
+            team: components["schemas"]["TeamRead"];
+            project: components["schemas"]["ProjectRead"];
+            /** Members */
+            members: components["schemas"]["UserPublic"][];
         };
         /** EventList */
         EventList: {
             /** Events */
-            events: components["schemas"]["EventRead"][];
+            events: components["schemas"]["EventFull"][];
         };
         /** EventMemberLink */
         EventMemberLink: {
@@ -892,8 +1102,6 @@ export interface components {
              * Format: date-time
              */
             end_time: string;
-            /** Created By */
-            created_by: string;
             /**
              * Id
              * Format: uuid
@@ -901,9 +1109,13 @@ export interface components {
             id: string;
             /** Created At */
             created_at: string | null;
+            /** Created By */
+            created_by: string;
         };
         /** EventUpdate */
         EventUpdate: {
+            /** Project Id */
+            project_id: string;
             /** Title */
             title?: string | null;
             /** Description */
@@ -912,6 +1124,11 @@ export interface components {
             start_time?: string | null;
             /** End Time */
             end_time?: string | null;
+        };
+        /** GoogleSyncRequest */
+        GoogleSyncRequest: {
+            /** Accesstoken */
+            accessToken: string;
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -1293,15 +1510,6 @@ export interface components {
              */
             role: ("admin" | "member") | null;
         };
-        /** UserGet */
-        UserGet: {
-            /** First Name */
-            first_name: string;
-            /** Last Name */
-            last_name: string;
-            /** Role */
-            role: ("admin" | "member") | null;
-        };
         /** UserList */
         UserList: {
             /** Users */
@@ -1325,7 +1533,11 @@ export interface components {
              * Format: email
              */
             email: string;
+            /** Avatar Url */
+            avatar_url?: string | null;
             membership: components["schemas"]["MemberRead"];
+            /** Updated At */
+            updated_at?: string | null;
         };
         /** UserRead */
         UserRead: {
@@ -1547,7 +1759,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserGet"];
+                    "application/json": components["schemas"]["UserRead"];
                 };
             };
         };
@@ -1594,7 +1806,12 @@ export interface operations {
     };
     get_user_events_api_users_me_events_get: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description Start datetime in ISO format */
+                start_date?: string;
+                /** @description End datetime in ISO format */
+                end_date?: string;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -1608,6 +1825,48 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["EventList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    upload_avatar_api_users_upload_avatar_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_upload_avatar_api_users_upload_avatar_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
@@ -1742,7 +2001,10 @@ export interface operations {
     };
     get_team_members_api_team_members__team_id__get: {
         parameters: {
-            query?: never;
+            query?: {
+                limit?: number;
+                offset?: number;
+            };
             header?: never;
             path: {
                 team_id: string;
@@ -2386,6 +2648,8 @@ export interface operations {
             query?: {
                 limit?: number;
                 offset?: number;
+                sort_by?: string;
+                sort_order?: string;
             };
             header?: never;
             path: {
@@ -2481,16 +2745,18 @@ export interface operations {
     };
     assign_task_to_member_api_tasks_assign__task_id__post: {
         parameters: {
-            query: {
-                member_id: string;
-            };
+            query?: never;
             header?: never;
             path: {
                 task_id: string;
             };
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AssignRequest"];
+            };
+        };
         responses: {
             /** @description Successful Response */
             200: {
@@ -2512,7 +2778,40 @@ export interface operations {
             };
         };
     };
-    create_event_api_events__post: {
+    unassign_task_from_member_api_tasks_unassign__task_id__post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                task_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AssignRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_event_api_events_create_post: {
         parameters: {
             query?: never;
             header?: never;
@@ -2545,38 +2844,7 @@ export interface operations {
             };
         };
     };
-    get_event_api_events__event_id__get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                event_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["EventRead"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    update_event_api_events__event_id__put: {
+    update_event_api_events_update__event_id__put: {
         parameters: {
             query?: never;
             header?: never;
@@ -2611,11 +2879,9 @@ export interface operations {
             };
         };
     };
-    assign_event_to_member_api_events__event_id__post: {
+    delete_event_api_events_delete__event_id__delete: {
         parameters: {
-            query: {
-                member_id: string;
-            };
+            query?: never;
             header?: never;
             path: {
                 event_id: string;
@@ -2623,6 +2889,143 @@ export interface operations {
             cookie?: never;
         };
         requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_user_events_api_events_me_get: {
+        parameters: {
+            query?: {
+                /** @description Start datetime in ISO format */
+                start_date?: string;
+                /** @description End datetime in ISO format */
+                end_date?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_events_api_events_project__project_id__get: {
+        parameters: {
+            query?: {
+                /** @description Start datetime in ISO format */
+                start_date?: string;
+                /** @description End datetime in ISO format */
+                end_date?: string;
+            };
+            header?: never;
+            path: {
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_user_events_api_events_calendar_get: {
+        parameters: {
+            query?: {
+                /** @description Start datetime in ISO format */
+                start_date?: string;
+                /** @description End datetime in ISO format */
+                end_date?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    assign_event_to_member_api_events_assign__event_id__post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AssignRequest"];
+            };
+        };
         responses: {
             /** @description Successful Response */
             200: {
@@ -2644,7 +3047,7 @@ export interface operations {
             };
         };
     };
-    delete_event_api_events__event_id__delete: {
+    unassign_event_from_member_api_events_unassign__event_id__post: {
         parameters: {
             query?: never;
             header?: never;
@@ -2653,7 +3056,11 @@ export interface operations {
             };
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AssignRequest"];
+            };
+        };
         responses: {
             /** @description Successful Response */
             204: {
@@ -2783,6 +3190,72 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["NotificationRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    sync_google_calendar_api_google_sync_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GoogleSyncRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    sync_google_calendar_api_google_delete_calendar_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GoogleSyncRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description Validation Error */

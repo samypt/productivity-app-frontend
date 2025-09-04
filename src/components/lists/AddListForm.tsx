@@ -15,22 +15,30 @@ type Props = {
 
 const AddListForm: React.FC<Props> = ({ list, handleSubmit, handleChange }) => {
   return (
-    <form className="add-list-form" onSubmit={handleSubmit}>
+    <form className="add-list-form" onSubmit={handleSubmit} noValidate>
       <input
+        type="text"
         name="name"
         value={list.name}
         onChange={handleChange}
-        placeholder="name"
+        placeholder="List name"
         required
+        className="input-name"
+        autoFocus
       />
       <input
         type="number"
         name="position"
         value={list.position}
         onChange={handleChange}
+        placeholder="Position"
         required
+        className="input-position"
+        min={0}
       />
-      <button type="submit">Add List</button>
+      <button type="submit" className="btn-submit" aria-label="Add list">
+        Add List
+      </button>
     </form>
   );
 };

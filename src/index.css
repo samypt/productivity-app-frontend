@@ -1,49 +1,152 @@
-/* :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-   
-  font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(17, 14, 14, 0.87);
-
-  background-color: #ffffff;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-} */
-
-/* index.css */
-
 :root {
-  --font-base: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  /* Layout */
+  --topbar-height: 3.5rem;
+  --sidebar-width: 14rem;
+  --sidebar-width-collapsed: 5rem;
 
-  --color-bg: #ffffff;
-  --color-text: #111;
-  --color-muted: #666;
-  --color-border: #e0e0e0;
+  /* Fonts */
+  --font-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-heading: "Montserrat", sans-serif;
 
-  --radius: 12px;
-  --transition: 0.2s ease-in-out;
+  /* Base Colors */
+  --color-bg: #f6f6f6;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f3f4f6;
+
+  --color-bg-light: #fafafa;
+  --color-bg-hover: #f9fafb;
+
+  --color-text: #374151;
+  --color-muted: #6b7280;
+  --color-border: #d1d5db;
+  --color-border-light: #e5e5e5;
+
+  /* Primary */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-button-text: #ffffff;
+
+  /* Input / Button Colors */
+  --color-input-bg: #ffffff;
+  --color-input-text: #1f2937;
+  --color-input-border: #d1d5db;
+  --color-input-placeholder: #9ca3af;
+  --color-input-focus: #2563eb;
+
+  --color-button-bg: #2563eb;
+  --color-button-hover: #1d4ed8;
+
+  /* Status */
+  --color-success: #22c55e;
+  --color-warning: #facc15;
+  --color-error: #e84a16;
+
+  /* Notifications */
+  --color-notification-bg: #fde68a;
+  --color-notification-text: #92400e;
+
+  --color-warning-glow: rgb(253 230 138 / 0.5);
+  --color-warning-glow-strong: rgb(253 230 138 / 0.9);
+
+  /* Task / Event / Invitation Colors */
+  --color-task-bg: #e3f2fd;
+  --color-task-text: #1976d2;
+
+  --color-event-bg: #f3e5f5;
+  --color-event-text: #8e24aa;
+
+  --color-invitation-bg: #fff3e0;
+  --color-invitation-text: #f57c00;
+
+  /* UI Effects */
+  --color-hover: #f3f4f6;
+  --shadow-light: rgba(0, 0, 0, 0.2);
+  --shadow-hover: rgba(0, 0, 0, 0.3);
+  --shadow: var(--shadow-light);
+  --radius: 16px;
+
+  /* Pastel Backgrounds (Light Theme) */
+  --pastel-1: #f0f9ff;
+  --pastel-2: #f5f3ff;
+  --pastel-3: #fff1f2;
+  --pastel-4: #fffbeb;
+  --pastel-5: #f3fdf2;
+  --pastel-6: #f9fafb;
+
+  --scroll-thumb: rgba(0, 0, 0, 0.08);
+
+  /* Transition */
+  --transition: 0.2s ease;
 }
 
-* {
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --color-bg: #2b2d31;
+  --color-surface: #383a40;
+  --color-surface-hover: #4a5568;
+
+  --color-bg-light: #383a40;
+  --color-bg-hover: #4b5563;
+
+  --color-text: #f3f4f6;
+  --color-muted: #9ca3af;
+  --color-border: #4b5563;
+  --color-border-light: #3f4248;
+
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-button-text: #ffffff;
+
+  /* Input / Button Colors */
+  --color-input-bg: #383a40;
+  --color-input-text: #f3f4f6;
+  --color-input-border: #4b5563;
+  --color-input-placeholder: #9ca3af;
+  --color-input-focus: #3b82f6;
+
+  --color-button-bg: #3b82f6;
+  --color-button-hover: #2563eb;
+
+  --color-warning: #eb4909;
+  --color-error: #f87171;
+
+  --color-notification-bg: #dc2626;
+  --color-notification-text: #fde68a;
+
+  --color-task-bg: #1e40af;
+  --color-task-text: #93c5fd;
+
+  --color-event-bg: #6b21a8;
+  --color-event-text: #d8b4fe;
+
+  --color-invitation-bg: #b45309;
+  --color-invitation-text: #fde68a;
+
+  --color-hover: #3f3f46;
+  --shadow-light: rgba(0, 0, 0, 0.8);
+  --shadow-hover: rgba(0, 0, 0, 0.9);
+  --shadow: var(--shadow-light);
+
+  --pastel-1: #2c3440;
+  --pastel-2: #3b3d64;
+  --pastel-3: #3d4b57;
+  --pastel-4: #4a3f5a;
+  --pastel-5: #2d4d3a;
+  --pastel-6: #1f2733;
+
+  --scroll-thumb: rgba(255, 255, 255, 0.06);
+}
+
+/* ------------------------------
+   Global Reset and Base Styles
+------------------------------ */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-svg {
-  /* margin: initial !important; */
-  /* padding: initial !important; */
-  box-sizing: content-box !important;
-  /* display: inline-block; */
-  /* vertical-align: middle; */
 }
 
 html,
@@ -57,6 +160,11 @@ body,
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+}
+
+body {
+  line-height: 1.5;
+  overflow-x: hidden;
 }
 
 a {
@@ -84,7 +192,141 @@ img {
   display: block;
 }
 
-body {
-  line-height: 1.5;
-  overflow-x: hidden;
+svg {
+  box-sizing: content-box !important;
+}
+
+/* Accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Scrollbars (Firefox) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) transparent;
+}
+
+/* Scrollbars (WebKit) */
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-thumb);
+  border-radius: 6px;
+  background-clip: content-box;
+  border: 2px solid transparent;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] *::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ------------------------------
+   Auth Form Styles
+------------------------------ */
+.center-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.auth-form {
+  max-width: 400px;
+  margin: 4rem auto 0 auto;
+  padding: 2rem;
+  background-color: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 25px var(--shadow);
+  font-family: var(--font-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 300px;
+}
+
+.auth-form h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-text);
+}
+
+.auth-form label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  align-self: flex-start;
+  margin-bottom: 0.25rem;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--color-input-border);
+  background-color: var(--color-input-bg);
+  color: var(--color-input-text);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.auth-form input::placeholder {
+  color: var(--color-input-placeholder);
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: var(--color-input-focus);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+}
+
+.auth-form button {
+  width: 80%;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-button-bg);
+  color: var(--color-button-text);
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color var(--transition), box-shadow var(--transition);
+  border: none;
+  font-size: 1rem;
+}
+
+.auth-form button:hover,
+.auth-form button:focus-visible {
+  background-color: var(--color-button-hover);
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.6);
+  outline: none;
+}
+
+.auth-form .link {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition), text-decoration var(--transition);
+}
+
+.auth-form .link:hover,
+.auth-form .link:focus-visible {
+  text-decoration: underline;
+  outline: none;
 }

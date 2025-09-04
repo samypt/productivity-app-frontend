@@ -1,39 +1,19 @@
 import React from "react";
-import { components } from "../../types/api";
 import { FilePlus2 } from "lucide-react";
 import TeamComponent from "./TeamComponent";
 import { TeamCreateModal } from "./modals";
-import { useFetch, useMutationFetch } from "../../hooks";
 import "./TeamList.style.css";
-
-type TeamsData = {
-  [fieldName: string]: components["schemas"]["TeamFullInfo"][];
-};
-type TeamCreate = components["schemas"]["TeamCreate"];
-type TeamRead = components["schemas"]["TeamRead"];
+import { useCreateTeam, useFetchTeams } from "../../api/teams";
 
 const TeamList: React.FC = () => {
   const [isCreateOpen, setIsCreateOpen] = React.useState<boolean>(false);
   const handleOpenCreate = () => setIsCreateOpen(true);
   const handleCloseCreate = () => setIsCreateOpen(false);
 
-  //  Create new team
-  const createTeam = useMutationFetch<TeamRead, TeamCreate>({
-    method: "POST",
-    url: "team/create",
-    queryKey: "teams",
-  });
-
-  const handleCreate = async (updatedTeamData: TeamCreate) => {
-    createTeam.mutate(updatedTeamData);
-  };
-  //  Get all my teams fetch
-  const { data } = useFetch<TeamsData>({
-    url: "users/me/teams",
-    queryKey: "teams",
-  });
+  const { createTeam } = useCreateTeam();
+  const { teams } = useFetchTeams();
   //  Create a list of teams
-  const list = data?.teams?.map((team) => (
+  const list = teams?.map((team) => (
     <TeamComponent key={team.id} team={team} />
   ));
 
@@ -48,7 +28,7 @@ const TeamList: React.FC = () => {
       <TeamCreateModal
         isOpen={isCreateOpen}
         onClose={handleCloseCreate}
-        onSave={handleCreate}
+        onSave={createTeam}
       />
     </div>
   );

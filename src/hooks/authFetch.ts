@@ -1,4 +1,5 @@
 import { toast } from "sonner";
+// import { QueryKey } from "@tanstack/react-query";
 
 type Method = "GET" | "POST" | "PUT" | "DELETE";
 
@@ -8,7 +9,7 @@ interface FetchOptions {
   body?: unknown;
   headers?: Record<string, string>;
   skip?: boolean;
-  queryKey?: string;
+  // queryKey?: QueryKey;
 }
 
 export async function authFetch<T>(
@@ -16,14 +17,31 @@ export async function authFetch<T>(
   navigate: (path: string) => void,
   options: FetchOptions
 ): Promise<T> {
+  if (options.skip) {
+    console.log("Skipping fetch due to skip option");
+    return {} as T;
+  }
+
+  const isFormData = options.body instanceof FormData;
+
+  const headers: Record<string, string> = {
+    Authorization: `Bearer ${token}`,
+    ...options.headers,
+  };
+
+  // Only add JSON content-type if it's not FormData
+  if (!isFormData) {
+    headers["Content-Type"] = "application/json";
+  }
+
   const response = await fetch(`https://127.0.0.1:8000/api/${options.url}`, {
     method: options.method || "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-    body: options.body ? JSON.stringify(options.body) : undefined,
+    headers,
+    body: isFormData
+      ? (options.body as FormData)
+      : options.body
+      ? JSON.stringify(options.body)
+      : undefined,
   });
 
   let result = null;

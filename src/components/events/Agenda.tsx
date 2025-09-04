@@ -1,31 +1,28 @@
 import React, { useState } from "react";
 import EventComponent from "./EventComponent";
 import { components } from "../../types/api";
-import { useFetch } from "../../hooks";
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
-import "./MyEvents.style.css";
+import { useAgendaEvents } from "../../api/events";
+import "./Agenda.style.css";
+import { endOfWeek, startOfWeek } from "date-fns";
+import { formatWeekRange, isDayInRange, isInWeek } from "../../utils";
 
-type EventsData = {
-  [fieldName: string]: components["schemas"]["EventRead"][];
-};
+type EventCreate = components["schemas"]["EventCreate"];
+
+interface Project {
+  projectID?: string;
+  showActions?: boolean;
+}
 
 type ViewType = "day" | "week";
 
-const MyEvents: React.FC = () => {
-  const startOfWeek = (date: Date) => {
-    const d = new Date(date);
-    const day = d.getDay();
-    const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-    return new Date(d.setDate(diff));
-  };
-
-  const endOfWeek = (date: Date) => {
-    const start = startOfWeek(date);
-    return new Date(start.getFullYear(), start.getMonth(), start.getDate() + 6);
-  };
-
+const Agenda: React.FC<Project> = ({ projectID, showActions }) => {
+  // -------------------------------
+  // View & navigation state
+  // -------------------------------
   const [view, setView] = useState<ViewType>("day");
   const [currentDate, setCurrentDate] = useState(new Date());
+
   const [startDate, setStartDate] = useState(() => {
     const start = startOfWeek(new Date());
     return new Date(start.setHours(0, 0, 0, 0));
@@ -36,38 +33,16 @@ const MyEvents: React.FC = () => {
     return new Date(end.setHours(0, 0, 0, 0));
   });
 
-  const { data, error, isLoading } = useFetch<EventsData>({
-    url: `users/me/events?start_date=${startDate.toISOString()}&end_date=${endDate.toISOString()}`,
-    queryKey: `my-events${startDate.toISOString()}${endDate.toISOString()}`,
-  });
+  // -------------------------------
+  // API hooks (Events CRUD)
+  // -------------------------------
 
-  const formatDate = (date: Date) =>
-    date.toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "short",
-    });
+  const { data, error, isLoading, deleteEvent, updateEvent, createEvent } =
+    useAgendaEvents(projectID, startDate, endDate);
 
-  const formatWeekRange = (date: Date) => {
-    const start = startOfWeek(date);
-    const end = endOfWeek(date);
-    return `${formatDate(start)} - ${formatDate(end)}`;
-  };
-
-  const isDayInRange = (startDate: Date, endDate: Date, selectedDate: Date) => {
-    return (
-      (startDate.getDate() === selectedDate.getDate() &&
-        startDate.getMonth() === selectedDate.getMonth() &&
-        startDate.getFullYear() === selectedDate.getFullYear()) ||
-      (selectedDate >= startDate && selectedDate <= endDate)
-    );
-  };
-
-  const isInWeek = (startDay: Date, endDay: Date) => {
-    const start = startOfWeek(currentDate);
-    const end = endOfWeek(currentDate);
-    return startDay <= end && endDay >= start;
-  };
-
+  // -------------------------------
+  // Navigation handlers
+  // -------------------------------
   const handlePrev = () => {
     const newDate = new Date(
       currentDate.getFullYear(),
@@ -88,6 +63,7 @@ const MyEvents: React.FC = () => {
     setCurrentDate(newDate);
     setStartDate(startOfWeek(newDate));
     setEndDate(endOfWeek(newDate));
+    console.log("not my function", startOfWeek(newDate));
   };
 
   const goToToday = () => {
@@ -96,49 +72,55 @@ const MyEvents: React.FC = () => {
     setEndDate(endOfWeek(new Date()));
   };
 
+  // -------------------------------
+  // Derived: filtered events
+  // -------------------------------
   const filteredEvents =
     data?.events?.filter((event) => {
       const eventStartDate = new Date(event.start_time);
       const eventEndDate = new Date(event.end_time);
       return view === "day"
         ? isDayInRange(eventStartDate, eventEndDate, currentDate)
-        : isInWeek(eventStartDate, eventEndDate);
+        : isInWeek(eventStartDate, eventEndDate, currentDate);
     }) || [];
 
-  // Form state
+  // -------------------------------
+  // Add Event form state & handlers
+  // -------------------------------
   const [showAddForm, setShowAddForm] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [newStart, setNewStart] = useState("");
   const [newEnd, setNewEnd] = useState("");
-  const [events, setEvents] = useState(data?.events || []);
 
-  // Add event form submit handler
   const handleAddEvent = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newTitle.trim()) return alert("Please enter a title.");
     if (!newStart || !newEnd)
       return alert("Please select start and end date/time.");
-    if (new Date(newStart) > new Date(newEnd))
-      return alert("Start time must be before or equal to end time.");
+    if (new Date(newStart) >= new Date(newEnd))
+      return alert("Start time must be before to end time.");
 
-    // Create new event object (simplified)
-    const newEvent = {
-      id: Date.now().toString(), // simple id
+    const newEvent: EventCreate = {
       title: newTitle,
       start_time: newStart,
       end_time: newEnd,
       description: "",
-      project_id: "",
-      created_by: "",
-      created_at: null,
+      project_id: projectID || "",
     };
 
-    setEvents((prev) => [...prev, newEvent]);
-    // Clear form and hide
+    createEvent(newEvent);
+
     setNewTitle("");
     setNewStart("");
     setNewEnd("");
     setShowAddForm(false);
+  };
+
+  const handleCancel = () => {
+    setShowAddForm(false);
+    setNewTitle("");
+    setNewStart("");
+    setNewEnd("");
   };
 
   return (
@@ -165,47 +147,7 @@ const MyEvents: React.FC = () => {
         <button className="today-btn" onClick={goToToday}>
           Today
         </button>
-        <button
-          className="add-event-btn"
-          onClick={() => setShowAddForm((show) => !show)}
-          aria-expanded={showAddForm}
-          aria-controls="add-event-form"
-        >
-          <Plus size={16} /> Add Event
-        </button>
       </div>
-
-      {showAddForm && (
-        <form
-          id="add-event-form"
-          className="add-event-form"
-          onSubmit={handleAddEvent}
-        >
-          <input
-            type="text"
-            placeholder="Event Title"
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-            required
-            autoFocus
-          />
-          <input
-            type="datetime-local"
-            value={newStart}
-            onChange={(e) => setNewStart(e.target.value)}
-            required
-          />
-          <input
-            type="datetime-local"
-            value={newEnd}
-            onChange={(e) => setNewEnd(e.target.value)}
-            required
-          />
-          <button type="submit" className="save-event-btn">
-            Save
-          </button>
-        </form>
-      )}
 
       <div className="day-switcher">
         <button
@@ -222,6 +164,58 @@ const MyEvents: React.FC = () => {
         </button>
       </div>
 
+      {projectID && (
+        <button
+          className="add-event-btn"
+          onClick={() => setShowAddForm((show) => !show)}
+          aria-expanded={showAddForm}
+          aria-controls="add-event-form"
+        >
+          <Plus size={16} /> Add Event
+        </button>
+      )}
+
+      {projectID && showAddForm && (
+        <form
+          id="add-event-form"
+          className="add-event-form"
+          onSubmit={handleAddEvent}
+        >
+          <input
+            type="text"
+            placeholder="Event Title"
+            value={newTitle}
+            onChange={(e) => setNewTitle(e.target.value)}
+            required
+          />
+          <input
+            type="datetime-local"
+            value={newStart}
+            onChange={(e) => setNewStart(e.target.value)}
+            required
+          />
+          <input
+            type="datetime-local"
+            value={newEnd}
+            onChange={(e) => setNewEnd(e.target.value)}
+            required
+          />
+
+          <div className="add-event-actions">
+            <button
+              type="button"
+              onClick={handleCancel}
+              className="cancel-event-btn"
+            >
+              Cancel
+            </button>
+            <button type="submit" className="save-event-btn">
+              Save
+            </button>
+          </div>
+        </form>
+      )}
+
       <ul className="events-list">
         {isLoading ? (
           <p className="no-events">Loading events...</p>
@@ -229,7 +223,13 @@ const MyEvents: React.FC = () => {
           <p className="no-events">Failed to load events.</p>
         ) : filteredEvents.length > 0 ? (
           filteredEvents.map((event) => (
-            <EventComponent key={event.id} event={event} />
+            <EventComponent
+              key={event.id}
+              event={event}
+              showActions={showActions}
+              onDelete={deleteEvent}
+              onEdit={updateEvent}
+            />
           ))
         ) : (
           <p className="no-events">
@@ -241,4 +241,4 @@ const MyEvents: React.FC = () => {
   );
 };
 
-export default MyEvents;
+export default Agenda;

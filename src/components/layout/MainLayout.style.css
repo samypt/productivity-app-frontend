@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f9f9f9;
+  background-color: var(--color-surface);
   margin-left: 14rem; /* default sidebar width */
   margin-top: 3.5rem; /* topbar height */
 }
@@ -11,7 +11,7 @@
   position: relative;
   flex: 1;
   padding: 2rem;
-  background-color: #fcfcfc;
+  background-color: var(--color-bg);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -19,7 +19,6 @@
   min-height: calc(100vh - 3.5rem);
 }
 
-/* 🔧 Responsive adjustment when sidebar collapses */
 @media (max-width: 768px) {
   .layout {
     margin-left: 5rem; /* collapsed sidebar width */

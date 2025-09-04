@@ -1,66 +1,65 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
-import { useFetchWithPagination, useMutationFetch } from "../hooks";
-import { components } from "../types/api";
-import BoardComponent from "../components/boards/BoardComponent";
 import { ClipboardPlus } from "lucide-react";
 import { BoardCreateModal } from "../components/boards/modals/BoardCreateModal";
+import Agenda from "../components/events/Agenda";
+import BoardComponent from "../components/boards/BoardComponent";
+import { useCreateBoard, useFetchBoards } from "../api/boards";
 import "./ProjectPage.style.css";
-
-type Boards = components["schemas"]["AllBoardsLists"];
-type BoardCreate = components["schemas"]["BoardCreate"];
-type BoardRead = components["schemas"]["BoardListRead"];
 
 const ProjectPage: React.FC = () => {
   const { projectID } = useParams();
-  // Board create
+
+  // -----------------------------
+  // Board creation state & handlers
+  // -----------------------------
+  // Controls the visibility of the "Create Board" modal
   const [isCreateOpen, setIsCreateOpen] = React.useState<boolean>(false);
   const handleOpenCreate = () => setIsCreateOpen(true);
   const handleCloseCreate = () => setIsCreateOpen(false);
-  const createBoard = useMutationFetch<BoardRead, BoardCreate>({
-    method: "POST",
-    url: "boards/create",
-    queryKey: `boards${projectID}`,
-  });
 
-  const handleCreate = async (boardData: BoardCreate) => {
-    createBoard.mutate(boardData);
-  };
+  // -----------------------------
+  // API hook for creating a board
+  // -----------------------------
+  // This hook performs the API call to create a board
+  // and automatically invalidates relevant queries to refresh the list
+  const { createBoard: handleCreate } = useCreateBoard(projectID!);
 
-  // Get all boards
-
+  // -----------------------------
+  // Infinite scroll observer
+  // -----------------------------
+  // `ref` is attached to the bottom of the board list
+  // `inView` becomes true when the user scrolls near it
   const { ref, inView } = useInView({
     threshold: 0.5,
     triggerOnce: false,
   });
-  const LIMIT: number = 4;
-  const OFFSET: number = 0;
-  const {
-    data,
-    status,
-    error,
-    fetchNextPage,
-    isFetchingNextPage,
-    hasNextPage,
-  } = useFetchWithPagination<Boards>(
-    {
-      url: `project/${projectID}/boards`,
-      method: "GET",
-      queryKey: `boards${projectID}`,
-    },
-    { limit: LIMIT, offset: OFFSET }
-  );
+
+  // -----------------------------
+  // Fetch boards for this project
+  // -----------------------------
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useFetchBoards(projectID!);
+
+  // Flatten paginated data into a single array of boards
   const allBoards = data?.pages.flatMap((page) => page.boards) ?? [];
 
+  // -----------------------------
+  // Render boards
+  // -----------------------------
   const boards = allBoards.map((board) => (
     <BoardComponent key={board.id} board={board} />
   ));
 
+  // -----------------------------
+  // Fetch next page on scroll
+  // -----------------------------
   React.useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
-    } // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView]);
 
   return (
@@ -71,6 +70,7 @@ const ProjectPage: React.FC = () => {
       </div>
 
       <div className="boards-grid">
+        <Agenda projectID={projectID} showActions={true} />
         {allBoards.length ? (
           boards
         ) : (

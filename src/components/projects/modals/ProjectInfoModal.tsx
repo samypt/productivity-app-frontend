@@ -1,4 +1,5 @@
 import { components } from "../../../types/api";
+import { formatDateString } from "../../../utils";
 import { Modal } from "../../modal/Modal";
 import "./ProjectInfoModal.style.css";
 
@@ -16,15 +17,7 @@ export const ProjectInfoModal: React.FC<Props> = ({
   onClose,
 }) => {
   const date = project.created_at ? new Date(project.created_at) : null;
-
-  const formattedDate = date
-    ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
-        2,
-        "0"
-      )}-${String(date.getDate()).padStart(2, "0")} ${String(
-        date.getHours()
-      ).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`
-    : "Unknown";
+  const formattedDate = formatDateString(date);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

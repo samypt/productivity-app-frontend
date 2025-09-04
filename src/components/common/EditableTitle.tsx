@@ -3,9 +3,8 @@ import "./EditableTitle.css";
 
 interface EditableTitleProps extends React.HTMLAttributes<HTMLDivElement> {
   initialTitle: string;
-  onSave: (newTitle: string) => void;
+  onSave: (newTitle: string) => void | Promise<void>;
   className?: string;
-  // style?: React.CSSProperties | undefined;
 }
 
 export const EditableTitle: React.FC<EditableTitleProps> = ({

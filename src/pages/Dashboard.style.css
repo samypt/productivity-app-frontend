@@ -1,5 +1,5 @@
 .dashboard {
-  padding: 2rem 1rem;
+  padding: 0rem 1rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@
 .dashboard-title {
   font-size: clamp(1.75rem, 2.5vw, 2.25rem);
   font-weight: 700;
-  color: #222;
+  color: var(--color-text);
   text-align: left;
   margin: 0;
 }

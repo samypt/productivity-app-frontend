@@ -5,8 +5,8 @@
   flex-direction: column;
   padding: 1.5rem 2rem;
   gap: 1.5rem;
-  background-color: var(--color-bg, #fff);
-  color: var(--color-text, #111);
+  background-color: var(--color-bg);
+  color: var(--color-text);
   min-height: 100%;
 }
 
@@ -20,7 +20,7 @@
 .boards-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #374151;
+  color: var(--color-muted);
 }
 
 /* ===== Add Board Icon ===== */
@@ -28,13 +28,13 @@
   width: 32px;
   height: 32px;
   cursor: pointer;
-  color: #2563eb;
+  color: var(--color-primary);
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .add-board-icon:hover {
   transform: scale(1.15);
-  color: #1d4ed8;
+  color: var(--color-primary-active);
 }
 
 /* ===== Grid of Boards ===== */
@@ -49,7 +49,7 @@
 /* ===== Empty Boards Message ===== */
 .boards-empty {
   font-size: 1rem;
-  color: #6b7280;
+  color: var(--color-muted);
   text-align: center;
   padding: 2rem;
 }
@@ -57,7 +57,7 @@
 /* ===== Loading Message ===== */
 .loading-message {
   font-size: 0.9rem;
-  color: #6b7280;
+  color: var(--color-muted);
   padding: 1rem 0;
   text-align: center;
 }

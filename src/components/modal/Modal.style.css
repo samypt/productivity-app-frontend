@@ -1,11 +1,11 @@
 .modal-overlay {
-  position: absolute;
+  position: fixed;
   inset: 0;
+  padding-left: var(--sidebar-width); /* use existing variable */
   background: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 25vh;
+  align-items: center;
   z-index: 999;
 }
 
@@ -25,12 +25,18 @@
   position: absolute;
   right: 1rem;
   top: 1rem;
-  color: #374151;
+  color: var(--color-text, #374151);
   cursor: pointer;
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .modal > .cancel:hover {
   transform: scale(1.3) rotate(0.5turn);
-  color: #e84a16;
+  color: var(--color-error, #e84a16); /* make sure this is in your :root */
+}
+
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding-left: var(--sidebar-width-collapsed, 5rem);
+  }
 }

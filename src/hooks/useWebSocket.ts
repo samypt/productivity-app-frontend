@@ -2,12 +2,25 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 const WS_BASE_URL = "wss://127.0.0.1:8000/ws";
 
+enum NotificationType {
+  Invitation = "invitation",
+  Notification = "notification",
+}
+
+type WsMessage = {
+  type: NotificationType;
+  msg: string;
+  count: number;
+};
+
 export function useWebSocket(jwtToken: string, url: string = "") {
   const socketRef = useRef<WebSocket | null>(null);
 
   const [isConnected, setIsConnected] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<WsMessage>([]);
   const [error, setError] = useState<Event | null>(null);
+
+  console.log("message", messages);
 
   const connect = useCallback(() => {
     if (!jwtToken) {
@@ -38,7 +51,7 @@ export function useWebSocket(jwtToken: string, url: string = "") {
       setError(error);
       socket.close();
     };
-  }, [jwtToken]);
+  }, [jwtToken, url]);
 
   useEffect(() => {
     connect();

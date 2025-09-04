@@ -1,30 +1,74 @@
 .add-list-form {
   display: flex;
-  flex-wrap: wrap;
   gap: 1rem;
+  flex-wrap: nowrap;
+  align-items: center;
   margin-bottom: 1rem;
+  width: 100%;
 }
 
-.add-list-form input,
-.add-list-form select,
-.add-list-form textarea {
+.add-list-form input {
+  flex: 1 1 auto;
   padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  min-width: 140px;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  background-color: var(--color-bg-light);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  min-width: 0; /* allows shrinking on narrow screens */
 }
 
-.add-list-form button {
-  background-color: #007bff;
-  color: white;
+.add-list-form input::placeholder {
+  color: var(--color-muted);
+}
+
+.add-list-form input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); /* You can keep this or adapt */
+  background-color: var(--color-surface);
+}
+
+.input-position {
+  width: 5rem;
+  text-align: center;
+  color: var(--color-text);
+}
+
+.btn-submit {
+  background-color: var(--color-primary);
+  color: var(--color-button-text);
   padding: 0.5rem 1rem;
   border: none;
-  border-radius: 8px;
-  font-weight: 500;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
-.add-list-form button:hover {
-  background-color: #0056b3;
+.btn-submit:hover,
+.btn-submit:focus {
+  background-color: #2563eb; /* You can add a --color-primary-hover variable if needed */
+  transform: translateY(-1px);
+  outline: none;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .add-list-form {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .input-position {
+    width: 100%;
+    text-align: left;
+  }
+
+  .btn-submit {
+    width: 100%;
+  }
 }

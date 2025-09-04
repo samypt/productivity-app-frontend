@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-base, "Inter", sans-serif);
 }
 
 h2 {
   font-size: 24px;
   font-weight: 600;
-  color: #222;
+  color: var(--color-text, #222);
   margin-bottom: 8px;
 }
 
@@ -29,17 +29,19 @@ h2 {
 .select {
   padding: 10px 12px;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border, #ddd);
   font-size: 14px;
-  background-color: #fafafa;
-  transition: border-color 0.2s ease;
+  background-color: var(--color-surface, #fafafa);
+  color: var(--color-text, #222);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .input:focus,
 .textarea:focus,
 .select:focus {
-  border-color: #888;
+  border-color: var(--color-primary, #888);
   outline: none;
+  background-color: var(--color-bg, #fff);
 }
 
 .textarea {
@@ -55,8 +57,8 @@ h2 {
 
 .btn-save {
   padding: 10px 20px;
-  background-color: #222;
-  color: white;
+  background-color: var(--color-primary, #2563eb);
+  color: var(--color-button-text, #fff);
   border: none;
   border-radius: 10px;
   font-weight: 500;
@@ -65,13 +67,13 @@ h2 {
 }
 
 .btn-save:hover {
-  background-color: #333;
+  background-color: var(--color-primary-hover, #1d4ed8);
 }
 
 .assign-section {
   margin-top: 32px;
   padding-top: 16px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--color-border, #eee);
 }
 
 .assign-header {
@@ -84,7 +86,7 @@ h2 {
 .assign-header h3 {
   font-size: 18px;
   font-weight: 600;
-  color: #333;
+  color: var(--color-text, #333);
 }
 
 .assign-btn {
@@ -93,14 +95,22 @@ h2 {
   gap: 8px;
   background: transparent;
   border: none;
-  color: #444;
+  color: var(--color-text);
   font-size: 14px;
   cursor: pointer;
   padding: 6px 10px;
   border-radius: 8px;
-  transition: background 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+/* Improved light mode hover */
 .assign-btn:hover {
-  background-color: #f3f3f3;
+  background-color: #e2e8f0; /* subtle visible hover background */
+  color: #1f2937; /* darker text for contrast */
+}
+
+/* Dark theme overrides */
+[data-theme="dark"] .assign-btn:hover {
+  background-color: #4b5563; /* dark gray hover bg */
+  color: #f3f4f6; /* light text on hover */
 }

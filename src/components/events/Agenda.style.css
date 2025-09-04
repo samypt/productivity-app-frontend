@@ -1,0 +1,244 @@
+.my-events-container {
+  flex: 1 1 calc(50% - 1rem);
+  box-sizing: border-box;
+  border: 1px solid var(--color-border, #d1d5db);
+  background-color: var(--color-bg, #fff);
+  padding: 1.25rem 1.5rem;
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.my-events-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.my-events-container h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text, #1f2937);
+  margin: 0;
+  font-family: var(--font-heading, "Montserrat", sans-serif);
+  letter-spacing: -0.01rem;
+}
+
+.event-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text, #374151);
+  padding: 0.25rem;
+  border-radius: 0.375rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-btn:hover {
+  background-color: var(--color-bg-hover, #f3f4f6);
+  color: var(--color-text-hover, #1f2937); /* darker on hover */
+}
+
+.date-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text, #374151);
+  min-width: 140px;
+  text-align: center;
+}
+
+.today-btn {
+  border: 1px solid var(--color-primary, #2563eb);
+  background-color: transparent;
+  color: var(--color-primary, #2563eb);
+  padding: 0.3rem 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.today-btn:hover {
+  background-color: var(--color-primary-hover, #e0f2fe);
+}
+
+/* Dark mode improvements */
+[data-theme="dark"] .today-btn {
+  color: #93c5fd; /* light blue text */
+  border-color: #3b82f6;
+}
+
+[data-theme="dark"] .today-btn:hover {
+  background-color: rgba(59, 130, 246, 0.15); /* subtle blue background */
+  color: #bfdbfe; /* brighter blue on hover */
+}
+
+.day-switcher {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.day-btn {
+  flex: 1;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1.5px solid var(--color-border, #d1d5db);
+  background-color: var(--color-bg-light, #f9fafb);
+  font-weight: 600;
+  font-family: var(--font-heading, "Montserrat", sans-serif);
+  cursor: pointer;
+  color: var(--color-muted, #4b5563);
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
+  user-select: none;
+}
+
+.day-btn:hover {
+  background-color: var(--color-primary-hover, #e0f2fe);
+  border-color: var(--color-primary, #2563eb);
+  color: var(--color-primary, #2563eb);
+}
+
+.day-btn.active {
+  background-color: var(--color-primary, #2563eb);
+  color: var(--color-button-text, #fff);
+  border-color: var(--color-primary, #2563eb);
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.35);
+}
+
+.add-event-btn {
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: 1px solid var(--color-primary, #2563eb);
+  background-color: transparent;
+  color: var(--color-primary, #2563eb);
+  padding: 0.3rem 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-event-btn:hover {
+  background-color: var(--color-primary-hover, #e0f2fe);
+}
+
+.add-event-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 0.75rem;
+  background-color: var(--color-bg-light, #f9fafb);
+}
+
+.add-event-form input[type="text"],
+.add-event-form input[type="datetime-local"] {
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--color-border, #d1d5db);
+  border-radius: 0.5rem;
+  font-family: var(--font-base, "Inter", sans-serif);
+  background-color: var(--color-surface, #fff);
+  color: var(--color-text, #1f2937);
+}
+
+.add-event-form input:focus {
+  border-color: var(--color-primary, #2563eb);
+  outline: none;
+  background-color: var(--color-bg, #fff);
+}
+
+/* Form actions */
+.add-event-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+}
+
+.save-event-btn {
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-primary-hover, #e0f2fe);
+  color: var(--color-primary, #2563eb);
+  border: 1.5px solid var(--color-primary, #2563eb);
+  font-weight: 600;
+  font-size: 0.875rem;
+  font-family: var(--font-heading, "Montserrat", sans-serif);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.save-event-btn:hover {
+  background-color: #bfdbfe;
+  border-color: #1d4ed8;
+  color: #1d4ed8;
+}
+
+.cancel-event-btn {
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border: 1.5px solid #ef4444;
+  font-weight: 500;
+  font-size: 0.875rem;
+  font-family: var(--font-heading, "Montserrat", sans-serif);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.cancel-event-btn:hover {
+  background-color: #fecaca;
+  border-color: #dc2626;
+  color: #991b1b;
+}
+
+.events-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+  max-height: 25rem;
+  scrollbar-width: thin;
+}
+
+.events-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.events-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary, #2563eb);
+  border-radius: 8px;
+}
+
+.no-events {
+  font-size: 1rem;
+  color: var(--color-muted, #6b7280);
+  text-align: center;
+  padding: 1rem;
+  user-select: none;
+}

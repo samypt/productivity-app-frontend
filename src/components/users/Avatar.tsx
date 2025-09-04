@@ -49,9 +49,11 @@ const getContrastTextColor = (bgColor: string): string => {
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
   return luminance > 0.6 ? "#1F2937" : "#ffffff";
 };
+type UserPublic = components["schemas"]["UserPublic"];
 
 type AvatarProps = {
-  user?: components["schemas"]["UserPublic"];
+  // user?: UserPublic | Omit<UserPublic, "created_at" | "role" | "membership">;
+  user?: UserPublic;
   initial?: string;
   size?: number;
   zIndex?: number;
@@ -70,7 +72,14 @@ export const Avatar: React.FC<AvatarProps> = ({
   const textColor = getContrastTextColor(bgColor);
   const initials = getInitials(user?.first_name, user?.last_name, initial);
 
-  return (
+  return user?.avatar_url ? (
+    <img
+      src={`https://127.0.0.1:8000${user.avatar_url}?v=${user.updated_at}`}
+      alt={name.trim() || "Avatar"}
+      className={`avatar ${className}`}
+      style={{ width: size, height: size, zIndex }}
+    />
+  ) : (
     <div
       className={`avatar ${className}`}
       title={name.trim()}

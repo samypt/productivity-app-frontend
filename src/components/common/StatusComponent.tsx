@@ -1,4 +1,5 @@
 import { CircleCheck, CircleDashed, CircleDotDashed } from "lucide-react";
+
 import "./StatusComponent.style.css";
 
 type Status = "todo" | "in_progress" | "done" | null;
@@ -11,37 +12,58 @@ interface GetStatusProps {
 
 export const getStatus = ({
   status,
-  size = "16px",
+  size = "20px",
   strokeWidth = "2",
 }: GetStatusProps) => {
-  const iconStyle = { width: size, height: size, strokeWidth };
-  const baseClass = "status-icon";
+  const iconStyle = {
+    width: size,
+    height: size,
+    strokeWidth,
+  };
 
-  if (status === "todo") {
-    return (
-      <div className="tooltip-wrapper">
-        <CircleDashed className={`${baseClass} todo`} style={iconStyle} />
-        <span className="tooltip-text">To Do</span>
-      </div>
-    );
-  } else if (status === "in_progress") {
-    return (
-      <div className="tooltip-wrapper">
-        <CircleDotDashed
-          className={`${baseClass} in_progress`}
-          style={iconStyle}
+  const commonProps = {
+    style: iconStyle,
+    className: "status-icon",
+  };
+
+  const statusMap = {
+    todo: {
+      icon: (
+        <CircleDashed
+          {...commonProps}
+          style={{ ...iconStyle, color: "#6b7280" }}
         />
-        <span className="tooltip-text">In Progress</span>
-      </div>
-    );
-  } else if (status === "done") {
-    return (
-      <div className="tooltip-wrapper">
-        <CircleCheck className={`${baseClass} done`} style={iconStyle} />
-        <span className="tooltip-text">Done</span>
-      </div>
-    );
-  } else {
-    return null;
-  }
+      ),
+      label: "To Do",
+    },
+    in_progress: {
+      icon: (
+        <CircleDotDashed
+          {...commonProps}
+          style={{ ...iconStyle, color: "#f59e0b" }}
+        />
+      ),
+      label: "In Progress",
+    },
+    done: {
+      icon: (
+        <CircleCheck
+          {...commonProps}
+          style={{ ...iconStyle, color: "#22c55e" }}
+        />
+      ),
+      label: "Done",
+    },
+  };
+
+  const current = status ? statusMap[status] : null;
+
+  if (!current) return null;
+
+  return (
+    <div className="status-wrapper">
+      {current.icon}
+      <span className="status-label">{current.label}</span>
+    </div>
+  );
 };

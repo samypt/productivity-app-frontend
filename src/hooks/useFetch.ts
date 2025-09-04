@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
 import { authFetch } from "./authFetch";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, QueryKey } from "@tanstack/react-query";
 
 type Method = "GET" | "POST" | "PUT" | "DELETE";
 
@@ -11,15 +11,14 @@ interface FetchOptions {
   body?: unknown;
   headers?: Record<string, string>;
   skip?: boolean;
-  queryKey?: string;
+  queryKey?: QueryKey;
 }
 
 export function useFetch<T = unknown>(options: FetchOptions = {}) {
   const { token } = useAuth();
   const navigate = useNavigate();
-
   const { data, isLoading, refetch, error } = useQuery<T>({
-    queryKey: [options.queryKey ?? options.url],
+    queryKey: options.queryKey ?? [options.url ?? "unknown"],
     enabled: !options.skip,
     queryFn: () =>
       authFetch<T>(token, navigate, {

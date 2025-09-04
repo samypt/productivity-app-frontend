@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import { Modal } from "./Modal";
 import { components } from "../../types/api";
-import { useFetchWithPagination, useMutationFetch } from "../../hooks";
+import { useAssignTaskMember, useUnassignTaskMember } from "../../api/tasks";
+import { useFetchMembers } from "../../api/members";
 import { Avatar } from "../users";
 import { UserPlus, UserX } from "lucide-react";
 import "./TaskAssignModal.style.css";
@@ -12,57 +13,35 @@ type TaskFull = components["schemas"]["TaskFull"];
 type Props = {
   isOpen: boolean;
   task: TaskFull;
+  // urlParam?: string; // Optional URL parameter for mutation
   onClose: () => void;
 };
 
-type TaskLink = components["schemas"]["TaskMemberLink"];
-type UserList = components["schemas"]["UserList"];
-
-export const TaskAssignModal: React.FC<Props> = ({ isOpen, task, onClose }) => {
+export const TaskAssignModal: React.FC<Props> = ({
+  isOpen,
+  task,
+  // urlParam,
+  onClose,
+}) => {
   const { teamID } = useParams();
   if (!teamID) throw new Error("Team ID is required");
 
-  const assignMember = useMutationFetch<TaskLink>({
-    method: "POST",
-    url: `tasks/assign/${task.id}`,
-    queryKey: `tasklist${task.list_id}`,
-  });
-
-  const unassignMember = useMutationFetch<TaskLink>({
-    method: "POST",
-    url: `tasks/unassign/${task.id}`,
-    queryKey: `tasklist${task.list_id}`,
-  });
-
-  const handleAssign = (member_id: string) =>
-    assignMember.mutate({ member_id });
-  const handleUnassign = (member_id: string) =>
-    unassignMember.mutate({ member_id });
+  const { assignMember: handleAssign } = useAssignTaskMember(task);
+  const { unassignMember: handleUnassign } = useUnassignTaskMember(task);
 
   const { ref, inView } = useInView({ threshold: 0.5 });
-  const LIMIT = 10;
-  const OFFSET = 0;
 
   const {
-    data,
+    members: allTeamMembers,
     status,
-    error,
     fetchNextPage,
     isFetchingNextPage,
     hasNextPage,
-  } = useFetchWithPagination<UserList>(
-    {
-      url: `team/members/${teamID}`,
-      method: "GET",
-      queryKey: `members${teamID}`,
-    },
-    { limit: LIMIT, offset: OFFSET }
-  );
-
-  const allTeamMembers = data?.pages.flatMap((page) => page.users) ?? [];
+  } = useFetchMembers(teamID);
 
   React.useEffect(() => {
     if (inView && hasNextPage) fetchNextPage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView]);
 
   const assigned = allTeamMembers.filter((user) =>

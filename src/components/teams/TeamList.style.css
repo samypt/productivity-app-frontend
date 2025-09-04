@@ -4,10 +4,11 @@
   box-sizing: border-box;
 }
 
-.teams-container h2 {
+.teams-container > h2 {
   text-align: left;
   margin: 0;
   padding-right: 0.5rem;
+  color: var(--color-text);
 }
 
 .teams-list {
@@ -25,26 +26,30 @@
     flex: 1 1 100%;
   }
 }
-
 .add-new-card {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  background-color: #f3f4f6;
-  border: 2px dashed #d1d5db;
-  border-radius: 16px;
+  background-color: var(--bg-surface, var(--bg-light, #f3f4f6));
+  border: 2px dashed var(--color-border, #d1d5db);
+  border-radius: var(--radius, 16px);
   padding: 1.5rem;
   max-width: 400px;
-  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.8s ease;
+  box-shadow: 4px 4px 12px
+    var(--shadow, var(--shadow-light, rgba(0, 0, 0, 0.2)));
+  transition: box-shadow 0.8s ease, background-color 0.2s ease,
+    transform 0.2s ease;
   flex: 1 1 400px;
   margin: 1rem;
   cursor: pointer;
+  color: var(--color-text);
 }
 
+/* Optional hover state */
 .add-new-card:hover {
-  background-color: #e5e7eb;
-  box-shadow: 8px 8px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 6px 6px 16px
+    var(--shadow-hover, var(--shadow-light, rgba(0, 0, 0, 0.3)));
+  background-color: var(--bg-surface-hover, var(--bg-light-hover, #e5e7eb));
   transform: translateY(-2px);
 }

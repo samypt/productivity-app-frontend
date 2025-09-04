@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
 import { authFetch } from "./authFetch";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient, QueryKey } from "@tanstack/react-query";
 
 type Method = "GET" | "POST" | "PUT" | "DELETE";
 
@@ -11,7 +11,7 @@ interface FetchOptions {
   body?: unknown;
   headers?: Record<string, string>;
   skip?: boolean;
-  queryKey?: string;
+  queryKey?: QueryKey;
 }
 
 export function useMutationFetch<T = unknown, V = Record<string, unknown>>(
@@ -34,7 +34,9 @@ export function useMutationFetch<T = unknown, V = Record<string, unknown>>(
     },
     onSuccess: () => {
       if (options.queryKey) {
-        queryClient.invalidateQueries({ queryKey: [options.queryKey] });
+        queryClient.invalidateQueries({
+          queryKey: options.queryKey ?? [options.url ?? "unknown"],
+        });
       }
     },
     onError: (err) => {

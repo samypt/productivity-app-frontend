@@ -1,12 +1,12 @@
 .project-create-modal {
   padding: 24px;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-base);
 }
 
 .modal-title {
   font-size: 24px;
   font-weight: 600;
-  color: #222;
+  color: var(--color-text);
   margin-bottom: 20px;
 }
 
@@ -19,7 +19,7 @@
 .project-create-form label {
   font-size: 14px;
   font-weight: 500;
-  color: #333;
+  color: var(--color-text);
 }
 
 .project-create-form input,
@@ -27,14 +27,15 @@
   padding: 10px 12px;
   font-size: 14px;
   border-radius: 8px;
-  border: 1px solid #ddd;
-  background-color: #fafafa;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  color: var(--color-text);
   transition: border-color 0.2s ease;
 }
 
 .project-create-form input:focus,
 .project-create-form textarea:focus {
-  border-color: #888;
+  border-color: var(--color-primary);
   outline: none;
 }
 
@@ -51,8 +52,8 @@
 
 .btn-save {
   padding: 10px 20px;
-  background-color: #222;
-  color: white;
+  background-color: var(--color-text);
+  color: var(--color-bg);
   border: none;
   border-radius: 10px;
   font-weight: 500;
@@ -61,5 +62,5 @@
 }
 
 .btn-save:hover {
-  background-color: #333;
+  background-color: var(--color-primary-hover);
 }

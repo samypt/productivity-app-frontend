@@ -16,23 +16,27 @@ export const UserList: React.FC<Props> = ({
 }) => {
   return (
     <div className="team-members interactive">
-      {members.slice(0, avatarLength).map((member, index) => {
-        return (
-          <Avatar
-            key={index}
-            user={member}
-            zIndex={members.length - index}
-            size={avatarSize}
-          />
-        );
-      })}
-      {members.length > avatarLength && (
-        <Avatar
-          key={avatarLength + 1}
-          initial={`+${members.length - avatarLength}`}
-          size={avatarSize}
-          className="more"
-        />
+      {members && members.length > 0 ? (
+        <>
+          {members.slice(0, avatarLength).map((member, index) => (
+            <Avatar
+              key={index}
+              user={member}
+              zIndex={members.length - index}
+              size={avatarSize}
+            />
+          ))}
+          {members.length > avatarLength && (
+            <Avatar
+              key={avatarLength + 1}
+              initial={`+${members.length - avatarLength}`}
+              size={avatarSize}
+              className="more"
+            />
+          )}
+        </>
+      ) : (
+        <span>No Assignees</span>
       )}
     </div>
   );

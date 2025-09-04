@@ -1,6 +1,6 @@
 .invite-modal-container {
   padding: 24px;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-base, "Inter", sans-serif);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -10,7 +10,7 @@
   margin: 0 0 16px 0;
   font-size: 22px;
   font-weight: 600;
-  color: #222;
+  color: var(--color-text, #222);
 }
 
 .invite-form {
@@ -22,7 +22,7 @@
 .invite-form label {
   font-size: 14px;
   font-weight: 500;
-  color: #333;
+  color: var(--color-text, #333);
 }
 
 .invite-form input,
@@ -30,14 +30,15 @@
   padding: 10px 12px;
   font-size: 14px;
   border-radius: 8px;
-  border: 1px solid #ddd;
-  background-color: #fafafa;
+  border: 1px solid var(--color-border, #ddd);
+  background-color: var(--color-bg-light, #fafafa);
+  color: var(--color-text, #222);
   transition: border-color 0.2s ease;
 }
 
 .invite-form input:focus,
 .invite-form select:focus {
-  border-color: #888;
+  border-color: var(--color-muted, #888);
   outline: none;
 }
 
@@ -47,8 +48,8 @@
 }
 
 .btn-send-invite {
-  background-color: #222;
-  color: white;
+  background-color: var(--color-primary, #2563eb); /* strong blue */
+  color: var(--color-button-text, #ffffff);
   border: none;
   padding: 10px 20px;
   font-weight: 500;
@@ -58,5 +59,5 @@
 }
 
 .btn-send-invite:hover {
-  background-color: #333;
+  background-color: var(--color-primary-hover, #1d4ed8);
 }

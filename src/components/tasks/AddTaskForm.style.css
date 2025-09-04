@@ -1,30 +1,59 @@
 .add-task-form {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 1rem 0.5rem;
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: var(--radius, 12px);
+  font-family: var(--font-base);
 }
 
 .add-task-form input,
 .add-task-form select,
 .add-task-form textarea {
   padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border-light, #d1d5db);
   border-radius: 8px;
   font-size: 0.9rem;
-  min-width: 140px;
+  font-family: inherit;
+  background-color: var(--color-bg, #ffffff);
+  color: var(--color-text, #1f2937);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.add-task-form button {
-  background-color: #007bff;
-  color: white;
-  padding: 0.5rem 1rem;
+.add-task-form input::placeholder,
+.add-task-form textarea::placeholder {
+  color: var(--color-muted, #9ca3af);
+}
+
+.add-task-form input:focus,
+.add-task-form select:focus,
+.add-task-form textarea:focus {
+  border-color: var(--color-primary, #2563eb);
+  background-color: var(--color-surface, #ffffff);
+  outline: none;
+}
+
+.add-task-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.add-task-form button[type="submit"] {
+  align-self: flex-end;
+  background-color: var(--color-primary, #2563eb);
+  color: var(--color-button-text, #ffffff);
+  padding: 0.45rem 1rem;
   border: none;
   border-radius: 8px;
   font-weight: 500;
+  font-size: 0.875rem;
   cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
-.add-task-form button:hover {
-  background-color: #0056b3;
+.add-task-form button[type="submit"]:hover {
+  background-color: var(--color-primary-hover, #1d4ed8);
+  transform: translateY(-1px);
 }

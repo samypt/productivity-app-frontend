@@ -5,12 +5,14 @@
   border-radius: 50%;
   font-weight: 600;
   position: relative;
-  border: 2px solid white;
+  border: 2px solid var(--color-bg); /* changed from white to bg variable for theme support */
   margin-left: -8px;
   user-select: none;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 transparent;
   will-change: transform, box-shadow;
+  background-color: var(--color-muted); /* fallback background for avatars */
+  color: var(--color-text);
 }
 
 .avatar:first-child {
@@ -19,25 +21,11 @@
 
 .avatar:hover {
   transform: scale(1.1) translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 20px var(--shadow-hover, rgba(0, 0, 0, 0.08)); /* use variable or fallback */
   z-index: 10;
 }
 
 .avatar.more {
-  background-color: #d1d5db;
-  color: #333;
+  background-color: var(--color-border); /* replaced #d1d5db */
+  color: var(--color-muted);
 }
-
-/* Include Online Status??? */
-
-/* .avatar::after {
-  content: "";
-  position: absolute;
-  bottom: 2px;
-  right: 2px;
-  width: 8px;
-  height: 8px;
-  background-color: #34d399;
-  border: 2px solid #fff;
-  border-radius: 50%;
-} */

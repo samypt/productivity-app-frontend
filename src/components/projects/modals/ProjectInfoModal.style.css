@@ -1,12 +1,12 @@
 .project-info-modal {
   padding: 24px;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-base);
 }
 
 .modal-title {
   font-size: 24px;
   font-weight: 600;
-  color: #222;
+  color: var(--color-text);
   margin-bottom: 20px;
 }
 
@@ -20,7 +20,7 @@
 .info-block label {
   font-size: 14px;
   font-weight: 500;
-  color: #333;
+  color: var(--color-text);
 }
 
 .info-block textarea {
@@ -29,9 +29,9 @@
   padding: 10px 12px;
   font-size: 14px;
   border-radius: 8px;
-  border: 1px solid #ddd;
-  background-color: #f4f4f4;
-  color: #555;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  color: var(--color-muted);
 }
 
 .modal-actions {
@@ -41,5 +41,5 @@
 
 .created-date {
   font-size: 14px;
-  color: #666;
+  color: var(--color-muted);
 }

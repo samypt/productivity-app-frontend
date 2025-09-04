@@ -11,6 +11,8 @@ import TeamPage from "./pages/TeamPage";
 import ProjectPage from "./pages/ProjectPage";
 import MyCalendar from "./pages/MyCalendar";
 import "./App.css";
+import { GoogleCallback } from "./pages/GoogleCallback";
+import UserSettingsPage from "./pages/UserSettingsPage";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
               element={<ProjectPage />}
             />
             <Route path="/calendar" element={<MyCalendar />} />
+            <Route path="/google/callback" element={<GoogleCallback />} />
+            <Route path="/settings" element={<UserSettingsPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -18,7 +18,7 @@ const Sidebar = () => {
   const { token } = useContext(AuthContext);
   const validToken = !!token && isTokenValid(token);
 
-  const socketRef = useWebSocket(token);
+  const socketRef = useWebSocket(token!);
   const dashboardNotifications = socketRef.messages.count;
 
   const location = useLocation();
@@ -47,12 +47,12 @@ const Sidebar = () => {
                 aria-label={label}
               >
                 <Icon />
+                <span className="link-label">{label}</span>
                 {to === "/dashboard" && dashboardNotifications > 0 && (
                   <span className="notification-badge" aria-live="polite">
                     {dashboardNotifications}
                   </span>
                 )}
-                <span className="link-label">{label}</span>
               </Link>
             );
           })}

@@ -1,0 +1,6 @@
+.teams > h2 {
+  text-align: left;
+  margin: 0;
+  padding-right: 0.5rem;
+  color: var(--color-text);
+}
