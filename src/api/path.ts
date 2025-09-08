@@ -108,7 +108,7 @@ export const PATHS: AppPaths = {
     root: "/users",
     detail: (id) => `/users/${id}`,
     uploadAvatar: "users/upload-avatar",
-    me: "/users/me",
+    me: "users/me",
   },
   events: {
     project: (projectId, start_date, end_date) =>

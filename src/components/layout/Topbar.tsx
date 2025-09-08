@@ -11,26 +11,20 @@ import {
   Monitor,
 } from "lucide-react";
 import { Avatar } from "../users";
-import { useAuth, useClickOutside, useFetch } from "../../hooks";
+import { useAuth, useClickOutside } from "../../hooks";
+import { useLoadUserData } from "../../api/users";
 import { useTheme, Theme } from "../../hooks/useTheme";
 import "./Topbar.style.css";
-import { components } from "../../types/api";
-
-type User = components["schemas"]["UserPublic"];
 
 export default function Topbar() {
   const { token, logout, user } = useAuth();
+  const { data } = useLoadUserData();
+  const userData = { ...user, ...data };
+
   const { theme, setTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
-
-  const { data } = useFetch<User>({
-    url: "users/me",
-    queryKey: ["userProfile"],
-  });
-
-  const userData = { ...user, ...data };
 
   const handleLogout = () => {
     logout();

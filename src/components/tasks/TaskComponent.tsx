@@ -49,12 +49,11 @@ const TaskComponent: React.FC<Props> = ({ task }) => {
         return AlertCircle;
     }
   })();
-
   return (
     <div className="task-container">
       <div className="task-main">
         <div className="task-header">
-          <StatusIcon className={`status-icon ${status.className}`} size={20} />
+          <StatusIcon className={`status-icon ${status}`} size={20} />
           <h3 className="task-title">{task.title}</h3>
         </div>
         {task.description && (

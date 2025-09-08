@@ -6,8 +6,17 @@ import Cropper from "react-easy-crop";
 import { getCroppedImg } from "../../utils/cropImage";
 import "./AvatarUploader.style.css";
 
+type UserPublic = components["schemas"]["UserPublic"];
+
+type AvatarUser = Partial<
+  Pick<
+    UserPublic,
+    "username" | "first_name" | "last_name" | "avatar_url" | "updated_at"
+  >
+>;
+
 interface AvatarUploaderProps {
-  user: components["schemas"]["UserPublic"];
+  user: AvatarUser;
 }
 
 export const AvatarUploader: React.FC<AvatarUploaderProps> = ({ user }) => {
@@ -20,7 +29,7 @@ export const AvatarUploader: React.FC<AvatarUploaderProps> = ({ user }) => {
 
   const uploadAvatar = useUploadAvatar();
 
-  const onCropComplete = useCallback((_, croppedPixels) => {
+  const onCropComplete = useCallback((_: undefined, croppedPixels: null) => {
     setCroppedAreaPixels(croppedPixels);
   }, []);
 

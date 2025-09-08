@@ -1,15 +1,15 @@
-import { useContext, useState } from "react";
-import { AuthContext } from "../store/AuthContext";
+import { useState } from "react";
 import { AvatarUploader } from "../components/users";
 import { useLoadUserData } from "../api/users";
 import "./UserSettingsPage.style.css";
+import { useAuth } from "../hooks";
 
 export default function UserSettingsPage() {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
+  const { data } = useLoadUserData();
+
   const [firstName, setFirstName] = useState(user?.first_name || "");
   const [lastName, setLastName] = useState(user?.last_name || "");
-
-  const { data } = useLoadUserData();
 
   const userData = { ...user, ...data };
 
@@ -47,7 +47,6 @@ export default function UserSettingsPage() {
             <h2>Account Information</h2>
             <div className="avatar-wrapper">
               <AvatarUploader user={userData} />
-              {/* <Avatar user={user} size={120} /> */}
             </div>
             <p className="user-email">{user.email}</p>
             <form className="form" onSubmit={handleProfileSubmit}>

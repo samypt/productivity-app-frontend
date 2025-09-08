@@ -12,44 +12,13 @@ import "./EventEditModal.style.css";
 
 type EventFull = components["schemas"]["EventFull"];
 type EventRead = components["schemas"]["EventRead"];
-type EditableEvent = Omit<EventRead, "created_at" | "created_by">;
 
 interface Props {
   event: EventFull;
   isOpen: boolean;
   onClose: () => void;
-  onSave: (updatedEvent: EditableEvent) => void;
+  onSave: (updatedEvent: EventRead) => void;
 }
-
-// export const EventEditModal: React.FC<Props> = ({
-//   event,
-//   isOpen,
-//   onClose,
-//   onSave,
-// }) => {
-//   const { user } = useAuth();
-//   const isMyEvent = event.created_by === user?.id;
-//   const [title, setTitle] = useState(event.title || "");
-//   const [description, setDescription] = useState(event.description || "");
-//   const [startTime, setStartTime] = useState(
-//     event.start_time?.slice(0, 16) || ""
-//   ); // YYYY-MM-DDTHH:MM
-
-//   const [endTime, setEndTime] = useState(event.end_time?.slice(0, 16) || "");
-//   const [isModalOpen, setModalOpen] = useState<boolean>(false);
-
-//   const handleSubmit = (e: React.FormEvent) => {
-//     e.preventDefault();
-//     onSave({
-//       id: event.id,
-//       title,
-//       description,
-//       start_time: startTime,
-//       end_time: endTime,
-//       project_id: event.project_id,
-//     });
-//     onClose();
-//   };
 
 export const EventEditModal: React.FC<Props> = ({
   event,
@@ -86,6 +55,8 @@ export const EventEditModal: React.FC<Props> = ({
       start_time: startTime,
       end_time: endTime,
       project_id: event.project_id,
+      created_at: event.created_at,
+      created_by: event.created_by,
     });
     onClose();
   };

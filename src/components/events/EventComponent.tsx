@@ -16,42 +16,6 @@ type Props = {
   onDelete?: (eventId: string) => void;
 };
 
-// const EventComponent: React.FC<Props> = ({
-//   event,
-//   showActions,
-//   onEdit,
-//   onDelete,
-// }) => {
-//   const { user } = useAuth();
-//   const isMyEvent = event.created_by === user?.id;
-
-//   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-//   const start = new Date(event.start_time);
-//   const end = new Date(event.end_time);
-
-//   const dateOptions: Intl.DateTimeFormatOptions = {
-//     weekday: "short",
-//     day: "numeric",
-//     month: "short",
-//     year: "numeric",
-//   };
-
-//   const timeOptions: Intl.DateTimeFormatOptions = {
-//     hour: "2-digit",
-//     minute: "2-digit",
-//     hour12: false,
-//   };
-
-//   const startDateStr = start.toLocaleDateString("en-GB", dateOptions);
-//   const endDateStr = end.toLocaleDateString("en-GB", dateOptions);
-//   const startTimeStr = start.toLocaleTimeString("en-GB", timeOptions);
-//   const endTimeStr = end.toLocaleTimeString("en-GB", timeOptions);
-
-//   const isSameDay =
-//     start.getFullYear() === end.getFullYear() &&
-//     start.getMonth() === end.getMonth() &&
-//     start.getDate() === end.getDate();
-
 const EventComponent: React.FC<Props> = ({
   event,
   showActions,

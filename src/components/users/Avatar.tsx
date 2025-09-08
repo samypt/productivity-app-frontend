@@ -49,11 +49,19 @@ const getContrastTextColor = (bgColor: string): string => {
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
   return luminance > 0.6 ? "#1F2937" : "#ffffff";
 };
+
 type UserPublic = components["schemas"]["UserPublic"];
+
+type AvatarUser = Partial<
+  Pick<
+    UserPublic,
+    "username" | "first_name" | "last_name" | "avatar_url" | "updated_at"
+  >
+>;
 
 type AvatarProps = {
   // user?: UserPublic | Omit<UserPublic, "created_at" | "role" | "membership">;
-  user?: UserPublic;
+  user?: AvatarUser;
   initial?: string;
   size?: number;
   zIndex?: number;
