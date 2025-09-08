@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
 import { toast } from "sonner";
 
+const apiUrl = import.meta.env.VITE_BASE_URL;
 type Method = "GET" | "POST" | "PUT" | "DELETE";
 
 interface FetchOptions {
@@ -26,20 +27,15 @@ export function useFetchWithAuth<T>(url?: string, options: FetchOptions = {}) {
     };
     setLoading(true);
     try {
-      const response = await fetch(
-        "https://127.0.0.1:8000/api/" + (url ? url : newUrl),
-        {
-          method: finalOptions.method || "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-            ...finalOptions.headers,
-          },
-          body: finalOptions.body
-            ? JSON.stringify(finalOptions.body)
-            : undefined,
-        }
-      );
+      const response = await fetch(apiUrl + (url ? url : newUrl), {
+        method: finalOptions.method || "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          ...finalOptions.headers,
+        },
+        body: finalOptions.body ? JSON.stringify(finalOptions.body) : undefined,
+      });
       const result = await response.json();
       if (response.status === 401 || response.status === 403) {
         navigate("/login");

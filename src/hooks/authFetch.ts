@@ -1,6 +1,8 @@
 import { toast } from "sonner";
 // import { QueryKey } from "@tanstack/react-query";
 
+const apiUrl = import.meta.env.VITE_BASE_URL;
+
 type Method = "GET" | "POST" | "PUT" | "DELETE";
 
 interface FetchOptions {
@@ -34,7 +36,7 @@ export async function authFetch<T>(
     headers["Content-Type"] = "application/json";
   }
 
-  const response = await fetch(`https://127.0.0.1:8000/api/${options.url}`, {
+  const response = await fetch(`${apiUrl}${options.url}`, {
     method: options.method || "GET",
     headers,
     body: isFormData

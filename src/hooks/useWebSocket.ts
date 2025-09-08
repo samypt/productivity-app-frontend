@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
-const WS_BASE_URL = "wss://127.0.0.1:8000/ws";
+const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL;
 
 enum NotificationType {
   Invitation = "invitation",
