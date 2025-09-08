@@ -24,6 +24,7 @@ export function useWebSocket(jwtToken: string, url: string = "") {
 
   const connect = useCallback(() => {
     if (!jwtToken) {
+      return;
       throw new Error("Please login");
     }
     const fullUrl: string = WS_BASE_URL + url;
