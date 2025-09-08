@@ -88,6 +88,10 @@ export const Avatar: React.FC<AvatarProps> = ({
     user.avatar_url.trim() !== "";
 
   console.log("user", user, hasValidAvatar);
+  console.log(
+    "IMAGE_URL",
+    `${IMAGE_BASE_URL}${user?.avatar_url}?v=${user?.updated_at}`
+  );
 
   return hasValidAvatar ? (
     <img
