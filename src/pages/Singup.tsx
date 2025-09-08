@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import "./Signin.style.css";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 const Signup = () => {
   const [username, setUsername] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
@@ -14,8 +16,8 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const signUpLink = inviteToken
-    ? `http://127.0.0.1:8000/api/signup/${inviteToken}`
-    : "http://127.0.0.1:8000/api/signup";
+    ? `${BASE_URL}signup/${inviteToken}`
+    : `${BASE_URL}signup`;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

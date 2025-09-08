@@ -4,6 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { toast } from "sonner";
 import "./Signin.style.css";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 const Signin = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -26,7 +28,7 @@ const Signin = () => {
     formData.append("password", password);
 
     try {
-      const response = await fetch("https://127.0.0.1:8000/api/login", {
+      const response = await fetch(`${BASE_URL}login`, {
         method: "POST",
         body: formData,
       });
