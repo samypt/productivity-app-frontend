@@ -2,6 +2,8 @@ import React from "react";
 import { components } from "../../types/api";
 import "./Avatar.css";
 
+const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
+
 const avatarColors = [
   "#E0F2FE",
   "#FEF9C3",
@@ -80,9 +82,14 @@ export const Avatar: React.FC<AvatarProps> = ({
   const textColor = getContrastTextColor(bgColor);
   const initials = getInitials(user?.first_name, user?.last_name, initial);
 
-  return user?.avatar_url ? (
+  const hasValidAvatar =
+    !!user?.avatar_url &&
+    user.avatar_url !== "None" &&
+    user.avatar_url.trim() !== "";
+
+  return hasValidAvatar ? (
     <img
-      src={`https://127.0.0.1:8000${user.avatar_url}?v=${user.updated_at}`}
+      src={`${IMAGE_BASE_URL}${user.avatar_url}?v=${user.updated_at}`}
       alt={name.trim() || "Avatar"}
       className={`avatar ${className}`}
       style={{ width: size, height: size, zIndex }}

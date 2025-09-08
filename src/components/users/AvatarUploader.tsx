@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { components } from "../../types/api";
 import { Avatar } from "./Avatar";
 import { useUploadAvatar } from "../../api/users";
-import Cropper from "react-easy-crop";
+import Cropper, { Area } from "react-easy-crop";
 import { getCroppedImg } from "../../utils/cropImage";
 import "./AvatarUploader.style.css";
 
@@ -25,11 +25,11 @@ export const AvatarUploader: React.FC<AvatarUploaderProps> = ({ user }) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>();
 
   const uploadAvatar = useUploadAvatar();
 
-  const onCropComplete = useCallback((_: undefined, croppedPixels: null) => {
+  const onCropComplete = useCallback((_: Area, croppedPixels: Area) => {
     setCroppedAreaPixels(croppedPixels);
   }, []);
 
@@ -64,12 +64,9 @@ export const AvatarUploader: React.FC<AvatarUploaderProps> = ({ user }) => {
     });
   };
 
-  console.log(preview);
-
   return (
     <div className="avatar-upload-wrapper">
       <Avatar user={{ ...user, avatar_url: preview }} size={120} />
-      {/* <Avatar user={{ ...user }} size={120} /> */}
 
       <label className="change-avatar-btn">
         {uploading ? "Uploading..." : "Change Avatar"}
